@@ -1,0 +1,86 @@
+This Notepad includes the major test cases that are needed to verified under "Authors" in "http://fakerestapi.azurewebsites.net/index.html"
+
+  . GET/api/v1/Authors
+ 
+	             API: GET/api/v1/Authors
+                     Test Case: response code should be "200" and response status should be "Success"
+	             Expected Result: 200 Success
+	   	     Actual Result: 200 Success
+	             Status: Pass
+				 			 
+	             API: GET/api/v1/Authors
+		     Test Case: Each object inside response contain(id, idBook, firstName,lastName)
+		     Expected Result: Array of objects, in which each object includes {"id": ,"idBook": ,"lastName": ,"firstName": }
+		     Actual Result: Array of objects, in which each object includes {"id": ,"idBook": ,"lastName": ,"firstName": }
+	             Status: Pass
+			 
+			 
+  . POST/api/v1/Authors
+			 
+	             API: Post/api/v1/Authors
+		     Test Case: Register a new valid Author and response code should be " 201 Created " 
+		     Expected Result: 201 Created
+		     Actual Result: 200 Success
+		     Status: fail
+ 
+  		     API: Post/api/v1/Authors
+		     Test Case: Register a new Author but the firstName is missed (response code should be: 400)
+		     Expected Result: 400 
+		     Actual Result: 400 
+		     Status: Pass
+  
+	             API: Post/api/v1/Authors
+		     Test Case: Register a new Author but the lastName is missed (response code should be: 400)
+		     Expected Result: 400 
+		     Actual Result: 400 
+		     Status: Pass
+
+			   
+  . GET/api/v1/Authors/authors/books/{idBook}
+             
+		     API: GET/api/v1/Authors/authors/books/{idBook}
+		     Test Case: Searching with valid idBook (for ex: 5 ) should return relative data in response body
+		     Expected Result: Array of obiects in which each object has an idBook = 5
+		     Actual Result: Array of obiects in which each object has an idBook = 5
+		     Status: Pass
+			 
+		     API: GET/api/v1/Authors/authors/books/{idBook}
+		     Test Case: Searching with invalid idBook (for ex: 250 ) should return empty array in the response body
+		     Expected Result: Empty array
+		     Actual Result: Empty array
+		     Status: Pass
+			 
+
+. PUT/api/v1/Authors/{id}
+
+		     API: PUT/api/v1/Authors/{id}
+		     Test Case: An author's data can be updated successfully (Update firstName and lastName)
+		     Expected Result: firstName and lastName are updated successfully in the response body  
+		     Actual Result: firstName and lastName are updated successfully in the response body
+		     Status: Pass
+			
+			
+. GET/api/v1/Authors/{id}
+
+		     API: GET/api/v1/Authors/{id}
+		     Test Case: The author's data updated in "PUT" request should be reflected in "GET" request
+		     Expected Result: The firstName and lastName sent in the "PUT" request are updated for the same author in the response body 
+		     Actual Result: The firstName and lastName for the same author are not updated
+		     Status: fail
+			 
+			 
+. DELETE/api/v1/Authors/{id}
+			 
+		     API: DELETE/api/v1/Authors/{id}
+		     Test Case: An author's data can be deleted successfully
+		     Expected Result: Response Code: 200 , Response Status: Success
+		     Actual Result: Response Code: 200 , Response Status: Success
+		     Status: Pass
+			 
+			 
+		     API: GET/api/v1/Authors/{id}
+		     Test Case: The author's data Deleted in the Delete request should be reflected (removed) in "GET" request
+		     Expected Result: The author's data deleted in the Delete request is removed form the data of the authors  
+		     Actual Result: The author's data deleted in the Delete request still exists in the data of the authors
+		     Status: fail
+			 

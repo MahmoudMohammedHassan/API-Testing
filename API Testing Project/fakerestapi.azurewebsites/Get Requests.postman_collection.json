@@ -1,0 +1,222 @@
+{
+	"info": {
+		"_postman_id": "b4669c41-304c-46cf-9ad3-a9f2485b0e0b",
+		"name": "Get Requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24003507"
+	},
+	"item": [
+		{
+			"name": "Get Authors Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Check that the Response Code is 200 \r",
+							"pm.test(\"Check Response Code\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"//Check that the Response Status is \"OK\"\r",
+							"pm.test(\"Check Response Status\", function () {\r",
+							"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Creating a variable to access the response data\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"//Determining the length of the data\r",
+							"var objectsNum = jsonData.length;\r",
+							"console.log(objectsNum);\r",
+							"\r",
+							"//Selecting a randNum\r",
+							"var randNum = Math.floor(Math.random()*objectsNum);\r",
+							"console.log(randNum);\r",
+							"\r",
+							"\r",
+							"//Checking that any object contains id\r",
+							"pm.test(\"Check id of a Random Object\", function () {\r",
+							"    console.log(jsonData[randNum].id);\r",
+							"    pm.expect(jsonData[randNum].id).to.eql(jsonData[randNum].id);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"//Checking that any object contains idBook\r",
+							"pm.test(\"Check idBook of a Random Object\", function () {\r",
+							"    console.log(jsonData[randNum].idBook);\r",
+							"    pm.expect(jsonData[randNum].idBook).to.eql(jsonData[randNum].idBook);   \r",
+							"});\r",
+							"\r",
+							"//Checking that any object contains firstName\r",
+							"pm.test(\"Check Object contains firstName\", function () {\r",
+							"    console.log(jsonData[randNum].firstName);\r",
+							"    pm.expect(jsonData[randNum].firstName).to.include(\"First Name\");\r",
+							"});\r",
+							"\r",
+							"//Checking that any object contains lastName\r",
+							"pm.test(\"Check Object contains lastName\", function () {\r",
+							"    console.log(jsonData[randNum].lastName);\r",
+							"    pm.expect(jsonData[randNum].lastName).to.include(\"Last Name\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// Setting the Collection Variable \"idBook\" with a Random Number included in the response length\r",
+							"pm.collectionVariables.set(\"idBook\", jsonData[randNum].idBook);\r",
+							"console.log(jsonData[randNum].idBook);\r",
+							"\r",
+							"// Setting the Collection Variable \"id\" with a Random Number included in the response length\r",
+							"pm.collectionVariables.set(\"id\", jsonData[randNum].id);\r",
+							"console.log(jsonData[randNum].id);\r",
+							"\r",
+							"// Setting the Collection Variable \"Id\" with a Random Number included in the response length\r",
+							"pm.environment.set(\"Id\",jsonData[randNum].id);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}api/v1/Authors",
+					"host": [
+						"{{BaseURL}}api"
+					],
+					"path": [
+						"v1",
+						"Authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Data using idBook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Creating a variable to access the response data\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"//Determining the length of the data\r",
+							"var objectsNum = jsonData.length;\r",
+							"console.log(objectsNum);\r",
+							"\r",
+							"//Selecting a randNum\r",
+							"var randNum = Math.floor(Math.random()*objectsNum);\r",
+							"console.log(randNum);\r",
+							"\r",
+							"for (i =0; i<objectsNum; i++){\r",
+							"    console.log(jsonData[i].idBook);\r",
+							"    var IdBook = pm.collectionVariables.get(\"idBook\");\r",
+							"    pm.test(\"Check idBook for all Objects in Response\",function(){\r",
+							"    pm.expect(jsonData[i].idBook).to.eql(IdBook);\r",
+							"});\r",
+							"};\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}api/v1/Authors/authors/books/{{idBook}}",
+					"host": [
+						"{{BaseURL}}api"
+					],
+					"path": [
+						"v1",
+						"Authors",
+						"authors",
+						"books",
+						"{{idBook}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Data using Author's ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Creating a variable to access the response data\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check ID in Response Body\",function(){\r",
+							"var ID = pm.environment.get(\"Id\");\r",
+							"console.log(ID);\r",
+							"pm.expect(jsonData.id).to.eql(ID);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}api/v1/Authors/{{id}}",
+					"host": [
+						"{{BaseURL}}api"
+					],
+					"path": [
+						"v1",
+						"Authors",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "idBook",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

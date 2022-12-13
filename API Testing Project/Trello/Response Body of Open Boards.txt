@@ -1,0 +1,18 @@
+"boards": [
+        {
+            "id": "6398c268da00c800b46411e2",
+            "name": "Private board",
+            "closed": false,
+            "idOrganization": "6398a0e61f8cca043539bcbf",
+            "pinned": false
+        },
+        {
+            "id": "6398a11c2d0c0d015d213784",
+            "name": "Test Board",
+            "closed": false,
+            "idOrganization": "6398a0e61f8cca043539bcbf",
+            "pinned": false
+        }
+    ]
+	
+	
