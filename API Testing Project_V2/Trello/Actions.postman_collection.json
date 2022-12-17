@@ -1,0 +1,384 @@
+{
+	"info": {
+		"_postman_id": "ca12e07b-0056-47ab-98a9-7d4753e294c6",
+		"name": "Actions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24003507"
+	},
+	"item": [
+		{
+			"name": "1.Create Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Creating a variable to access response \r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"//Checking that \"Closed\" is \"False\"\r",
+							"pm.test(\"Check that Closed is False\",function(){\r",
+							"    pm.expect(jsonData.closed).to.equal(false)\r",
+							"});\r",
+							"\r",
+							"//Checking that \"canBePublic\" is \"True\"\r",
+							"pm.test(\"Check that canBePublic is True\",function(){\r",
+							"    pm.expect(jsonData.prefs.canBePublic).to.equal(true);   \r",
+							"});\r",
+							"\r",
+							"//Checking that \"canInvite\" is \"True\"\r",
+							"pm.test(\"Check that canInvite is True\",function(){\r",
+							"    pm.expect(jsonData.prefs.canInvite).to.equal(true);   \r",
+							"});\r",
+							"\r",
+							"//Checking that \"canInvite\" is \"Private\"\r",
+							"pm.test(\"Check that Permission Level is Private\",function(){\r",
+							"    pm.expect(jsonData.prefs.permissionLevel).to.equal(\"private\");   \r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}boards/?name=Api Board&key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+					"host": [
+						"{{BaseURL}}boards"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Api Board"
+						},
+						{
+							"key": "key",
+							"value": "51f2a3fa68cfbd9448aea3c78edd6745"
+						},
+						{
+							"key": "token",
+							"value": "ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.Get Open Boards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Creating a variable to access response \r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"\r",
+							"// Validating that the number of boards in the response is greater than 1\r",
+							"pm.test(\"Check that Number of Boards > 1\",function(){\r",
+							"    console.log(jsonData.boards.length);\r",
+							"    pm.expect(jsonData.boards.length).greaterThan(1);\r",
+							"});\r",
+							"\r",
+							"// Setting the Environment variable \"FirstBoardID\" with the \"ID\" of the first board in the response\r",
+							"pm.environment.set(\"FirstBoardID\", jsonData.boards[0].id);\r",
+							"console.log(jsonData.boards[0].id);\r",
+							"\r",
+							"// Setting the Environment variable \"LastBoardID\" with the \"ID\" of the last board in the response\r",
+							"var NumofBoards = jsonData.boards.length -1;\r",
+							"pm.environment.set(\"LastBoardID\", jsonData.boards[NumofBoards].id);\r",
+							"\r",
+							"\r",
+							"// Setting the Environment variable \"SecondBoardID\" with the \"ID\" of the Second board in the response\r",
+							"pm.environment.set(\"SecondBoardID\", jsonData.boards[1].id);\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}members/me?boards=open&key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+					"host": [
+						"{{BaseURL}}members"
+					],
+					"path": [
+						"me"
+					],
+					"query": [
+						{
+							"key": "boards",
+							"value": "open"
+						},
+						{
+							"key": "key",
+							"value": "51f2a3fa68cfbd9448aea3c78edd6745"
+						},
+						{
+							"key": "token",
+							"value": "ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.Delete Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Checking that the Response Code is 200\r",
+							"pm.test(\"Response code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"//Checking that the Response Body is \"_value: null\"\r",
+							"pm.test(\"Checking Response Message for Deleting a Board\",function(){\r",
+							"    pm.expect(pm.response.json()._value).to.eql(null);\r",
+							"});\r",
+							"\r",
+							"//Checking that the Response Body contains a message like \"board is removed successfully\"\r",
+							"pm.test(\"Checking Response Message includes a Meaninful Message\",function(){\r",
+							"    pm.expect(pm.response.json()._value).to.include(\"board is removed successfully\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}boards/{{FirstBoardID}}?key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+					"host": [
+						"{{BaseURL}}boards"
+					],
+					"path": [
+						"{{FirstBoardID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "51f2a3fa68cfbd9448aea3c78edd6745"
+						},
+						{
+							"key": "token",
+							"value": "ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.Create a List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Validating that the Response Body includes Keys:id, name, idBoard\r",
+							"tests[\"Response contains key: id\"] = _.has(jsonData, \"id\");\r",
+							"\r",
+							"tests[\"Response contains key: name\"] = _.has(jsonData, \"name\"); \r",
+							"\r",
+							"tests[\"Response contains key: idBoard\"] = _.has(jsonData, \"idBoard\");\r",
+							"\r",
+							"//Validating the default value of the parameter \"closed\"\r",
+							"pm.test(\"Check Default Value of Closed\",function(){\r",
+							"    pm.expect(jsonData.closed).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Validating the default value of the parameter \"limits\" (empty object)\r",
+							"pm.test(\"Check Default Value of limits\",function(){\r",
+							"    pm.expect(jsonData.limits).to.eql({});\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}lists?name=Api List&idBoard={{LastBoardID}}&key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+					"host": [
+						"{{BaseURL}}lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Api List"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{LastBoardID}}"
+						},
+						{
+							"key": "key",
+							"value": "51f2a3fa68cfbd9448aea3c78edd6745"
+						},
+						{
+							"key": "token",
+							"value": "ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5.Get Lists on a Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Creating a variable to access response \r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Setting the Environment variable \"FirstListID\" with the \"ID\" of the first list in the response\r",
+							"pm.environment.set(\"FirstListID\", jsonData[0].id);\r",
+							"console.log(jsonData[0].id);\r",
+							"\r",
+							"\r",
+							"// Setting the Environment variable \"LastListID\" with the \"ID\" of the last list in the response\r",
+							"var NumofLists = jsonData.length -1;\r",
+							"pm.environment.set(\"LastListID\", jsonData[NumofLists].id);\r",
+							"\r",
+							"// Checking that the Number of Lists in a board is 3 (The default Lists: To Do, Doing, Done)\r",
+							"pm.test(\"Check the Number of Lists in a Board is 3\",function(){\r",
+							"    pm.expect(jsonData.length).to.eql(3);\r",
+							"});\r",
+							"console.log(jsonData.length);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}boards/{{SecondBoardID}}/lists?key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+					"host": [
+						"{{BaseURL}}boards"
+					],
+					"path": [
+						"{{SecondBoardID}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "51f2a3fa68cfbd9448aea3c78edd6745"
+						},
+						{
+							"key": "token",
+							"value": "ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6.Archive or unarchive a List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Creating a variable to access response \r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"//Checking that the Response Code is 200\r",
+							"pm.test(\"Response code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"//Getting the value of the query parameter \"value\"\r",
+							"var queryParameter = pm.request.url.query.toObject().value;\r",
+							"\r",
+							"//Validating that \"closed\" is true if the query parameter \"value = true\" and it is false if the query parameter \"value = false\"\r",
+							"pm.test(\"Check the Key 'Closed' in Response\",function(){\r",
+							"if(queryParameter==\"true\"){\r",
+							"    pm.expect(jsonData.closed).to.eql(true);\r",
+							"}else{\r",
+							"    pm.expect(jsonData.closed).to.eql(false);\r",
+							"}\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Set-Cookie is present\", function () {\r",
+							"    pm.response.to.have.header(\"Set-Cookie\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Value of Header Set-Cookie \",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Set-Cookie\")).includes(\"isEnterpriseAdmin%3Dfalse\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}lists/{{FirstListID}}/closed?key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E&value=true",
+					"host": [
+						"{{BaseURL}}lists"
+					],
+					"path": [
+						"{{FirstListID}}",
+						"closed"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "51f2a3fa68cfbd9448aea3c78edd6745"
+						},
+						{
+							"key": "token",
+							"value": "ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E"
+						},
+						{
+							"key": "value",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

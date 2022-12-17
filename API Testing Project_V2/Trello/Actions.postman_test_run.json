@@ -1,0 +1,276 @@
+{
+	"id": "0d8ac1d5-50be-49c9-8bbc-307863084a56",
+	"name": "Actions",
+	"timestamp": "2022-12-17T08:30:51.442Z",
+	"collection_id": "24003507-ca12e07b-0056-47ab-98a9-7d4753e294c6",
+	"folder_id": 0,
+	"environment_id": "24003507-4cf40902-4a5a-44ef-85a3-3cde4d12faf5",
+	"totalPass": 17,
+	"totalFail": 1,
+	"results": [
+		{
+			"id": "6c3465e4-f67b-426a-af0e-6a7536d8f723",
+			"name": "1.Create Board",
+			"url": "https://api.trello.com/1/boards/?name=Api%20Board&key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+			"time": 403,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Check that Closed is False": true,
+				"Check that canBePublic is True": true,
+				"Check that canInvite is True": true,
+				"Check that Permission Level is Private": true
+			},
+			"testPassFailCounts": {
+				"Check that Closed is False": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check that canBePublic is True": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check that canInvite is True": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check that Permission Level is Private": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				403
+			],
+			"allTests": [
+				{
+					"Check that Closed is False": true,
+					"Check that canBePublic is True": true,
+					"Check that canInvite is True": true,
+					"Check that Permission Level is Private": true
+				}
+			]
+		},
+		{
+			"id": "a2bd281c-ad8f-46e9-af02-9f9e62fd2609",
+			"name": "2.Get Open Boards",
+			"url": "https://api.trello.com/1/members/me?boards=open&key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+			"time": 252,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Check that Number of Boards > 1": true
+			},
+			"testPassFailCounts": {
+				"Check that Number of Boards > 1": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				252
+			],
+			"allTests": [
+				{
+					"Check that Number of Boards > 1": true
+				}
+			]
+		},
+		{
+			"id": "f4bdba75-6d99-42c6-bb5b-53562b881d89",
+			"name": "3.Delete Board",
+			"url": "https://api.trello.com/1/boards/639d7d1dda7cfc00bbd5ae9f?key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+			"time": 942,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response code is 200": true,
+				"Checking Response Message for Deleting a Board": true,
+				"Checking Response Message includes a Meaninful Message": false
+			},
+			"testPassFailCounts": {
+				"Response code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Checking Response Message for Deleting a Board": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Checking Response Message includes a Meaninful Message": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				942
+			],
+			"allTests": [
+				{
+					"Response code is 200": true,
+					"Checking Response Message for Deleting a Board": true,
+					"Checking Response Message includes a Meaninful Message": false
+				}
+			]
+		},
+		{
+			"id": "ac0eda73-c39d-417a-99b5-73814006d0a8",
+			"name": "4.Create a List",
+			"url": "https://api.trello.com/1/lists?name=Api%20List&idBoard=6398a11c2d0c0d015d213784&key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+			"time": 276,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Check Default Value of Closed": true,
+				"Check Default Value of limits": true,
+				"Response contains key: id": true,
+				"Response contains key: name": true,
+				"Response contains key: idBoard": true
+			},
+			"testPassFailCounts": {
+				"Check Default Value of Closed": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check Default Value of limits": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response contains key: id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response contains key: name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response contains key: idBoard": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				276
+			],
+			"allTests": [
+				{
+					"Check Default Value of Closed": true,
+					"Check Default Value of limits": true,
+					"Response contains key: id": true,
+					"Response contains key: name": true,
+					"Response contains key: idBoard": true
+				}
+			]
+		},
+		{
+			"id": "ef4952a9-15ae-41a6-812d-7c2a37f5e1c9",
+			"name": "5.Get Lists on a Board",
+			"url": "https://api.trello.com/1/boards/639d7d22674e2c00dfec4e6e/lists?key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E",
+			"time": 202,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Check the Number of Lists in a Board is 3": true
+			},
+			"testPassFailCounts": {
+				"Check the Number of Lists in a Board is 3": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				202
+			],
+			"allTests": [
+				{
+					"Check the Number of Lists in a Board is 3": true
+				}
+			]
+		},
+		{
+			"id": "f30ff4df-8ee9-4306-8de0-ceb624289d16",
+			"name": "6.Archive or unarchive a List",
+			"url": "https://api.trello.com/1/lists/639d7d22674e2c00dfec4e75/closed?key=51f2a3fa68cfbd9448aea3c78edd6745&token=ATTA3acddc6b0b3478f08e8feb7447d5643150cc9d09e63f90511beaf372c40241deAB44523E&value=true",
+			"time": 268,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response code is 200": true,
+				"Check the Key 'Closed' in Response": true,
+				"Set-Cookie is present": true,
+				"Check Value of Header Set-Cookie ": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check the Key 'Closed' in Response": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Set-Cookie is present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check Value of Header Set-Cookie ": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				268
+			],
+			"allTests": [
+				{
+					"Response code is 200": true,
+					"Check the Key 'Closed' in Response": true,
+					"Set-Cookie is present": true,
+					"Check Value of Header Set-Cookie ": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 2343,
+	"collection": {
+		"requests": [
+			{
+				"id": "6c3465e4-f67b-426a-af0e-6a7536d8f723",
+				"method": "POST"
+			},
+			{
+				"id": "a2bd281c-ad8f-46e9-af02-9f9e62fd2609",
+				"method": "GET"
+			},
+			{
+				"id": "f4bdba75-6d99-42c6-bb5b-53562b881d89",
+				"method": "DELETE"
+			},
+			{
+				"id": "ac0eda73-c39d-417a-99b5-73814006d0a8",
+				"method": "POST"
+			},
+			{
+				"id": "ef4952a9-15ae-41a6-812d-7c2a37f5e1c9",
+				"method": "GET"
+			},
+			{
+				"id": "f30ff4df-8ee9-4306-8de0-ceb624289d16",
+				"method": "PUT"
+			}
+		]
+	}
+}
